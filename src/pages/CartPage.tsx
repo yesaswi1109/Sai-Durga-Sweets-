@@ -24,6 +24,20 @@ export default function CartPage({ cart, updateQuantity, removeFromCart, clearCa
 
   const subtotal = cart.reduce((acc, item) => acc + (parsePrice(item.price) * item.quantity), 0);
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const [recommendedProducts, setRecommendedProducts] = useState<any[]>([]);
+
+  React.useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const response = await fetch('/api/menu');
+        const data = await response.json();
+        setRecommendedProducts(data.slice(0, 6));
+      } catch (error) {
+        console.error('Error fetching recommendations:', error);
+      }
+    };
+    fetchRecommendations();
+  }, []);
 
   const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,25 +199,25 @@ export default function CartPage({ cart, updateQuantity, removeFromCart, clearCa
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-20">
         <h2 className="text-2xl font-serif font-bold text-primary-950 mb-8">You may also like</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-          {/* We'll fetch these or just show a few from the cart's category if possible, 
-              but since we don't have a specific ID here, we'll just show the first 6 items from the menu */}
-          {[1, 2, 3, 4, 5, 6].map((id) => (
-            <Link key={id} to={`/product/${id}`} className="group">
+          {recommendedProducts.map((item) => (
+            <Link key={item.id} to={`/product/${item.id}`} className="group">
               <div className="aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3 border border-gray-100 relative">
                 <img 
-                  src={`https://www.godavarivantillu.com/cdn/shop/products/${id === 1 ? 'dry-fruit-pootharekulu-839' : id === 2 ? 'tapeswaram-madatha-kaja-125' : id === 3 ? 'bellam-sunnundalu-sunnivundalu-jaggery-urad-dal-ladoo-537' : id === 4 ? 'nuvvula-arisalu-godavari-style-692' : id === 5 ? 'bellam-gavvalu-original-godavari-recipe-445' : 'bandar-laddu-tokkudu-854'}_480x480.jpg?v=1638882328`} 
-                  alt="Recommended" 
+                  src={item.url} 
+                  alt={item.title} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 z-10 flex items-center justify-center">
-                  <div className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded shadow-sm transform -rotate-12 border border-primary-100">
-                    <span className="text-primary-800 font-black text-[8px] uppercase tracking-wider">SAIDURGA</span>
+                {item.url.includes('godavarivantillu') && (
+                  <div className="absolute inset-0 z-10 flex items-center justify-center">
+                    <div className="bg-white/90 backdrop-blur-sm px-2 py-1 rounded shadow-sm transform -rotate-12 border border-primary-100">
+                      <span className="text-primary-800 font-black text-[8px] uppercase tracking-wider">SAIDURGA</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
               <h4 className="text-xs font-bold text-gray-800 line-clamp-1 group-hover:text-primary-900 transition-colors">
-                {id === 1 ? 'Dry Fruit Pootharekulu' : id === 2 ? 'Tapeswaram Kaja' : id === 3 ? 'Bellam Sunnundalu' : id === 4 ? 'Nuvvula Ariselu' : id === 5 ? 'Bellam Gavvalu' : 'Bandar Laddu'}
+                {item.title}
               </h4>
             </Link>
           ))}
