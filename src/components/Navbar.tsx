@@ -8,7 +8,7 @@ interface NavbarProps {
 
 export default function Navbar({ cartCount }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const phoneNumber = "8985042381";
+  const phoneNumber = "7305886680";
 
   return (
     <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">

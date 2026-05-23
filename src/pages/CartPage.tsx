@@ -16,7 +16,7 @@ export default function CartPage({ cart, updateQuantity, removeFromCart, clearCa
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
   const [customerDetails, setCustomerDetails] = useState({ name: '', phone: '', email: '' });
-  const whatsappNumber = "918985042381";
+  const whatsappNumber = "917305886680";
 
   const parsePrice = (priceStr: string) => {
     return parseInt(priceStr.replace(/[^0-9]/g, '')) || 0;

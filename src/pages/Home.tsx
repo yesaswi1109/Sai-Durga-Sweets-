@@ -8,9 +8,9 @@ interface HomeProps {
 }
 
 export default function Home({ addToCart }: HomeProps) {
-  const phoneNumber = "8985042381";
-  const whatsappNumber = "918985042381";
-  const email = "lokeshsinha746@gmail.com";
+  const phoneNumber = "7305886680";
+  const whatsappNumber = "917305886680";
+  const email = "yesaswi1109@gmail.com";
   const mapsLink = "https://maps.app.goo.gl/quwm2JWfEuv2ZxXq5";
 
   const [allMenuItems, setAllMenuItems] = useState<any[]>([]);

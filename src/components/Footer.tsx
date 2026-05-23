@@ -2,8 +2,8 @@ import React from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, ChevronRight } from 'lucide-react';
 
 export default function Footer() {
-  const phoneNumber = "8985042381";
-  const email = "lokeshsinha746@gmail.com";
+  const phoneNumber = "7305886680";
+  const email = "yesaswi1109@gmail.com";
 
   return (
     <footer className="bg-primary-950 text-white pt-20 pb-10">
